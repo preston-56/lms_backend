@@ -16,8 +16,8 @@ import logging
 
 from database.database import get_db
 from course.models import Course
-from user.models.user import User
-from course.schemas import CourseCreate, CourseResponse, CourseUpdate, User
+from user.models import User
+from course.schemas import CourseCreate, CourseResponse, CourseUpdate
 from auth.utils import require_admin
 
 logger = logging.getLogger(__name__)
