@@ -25,8 +25,8 @@ from .user import router as user_router
 # Create the main router for admin routes
 router = APIRouter(prefix="/admin", tags=["Admin"])
 
-# Include individual route modules with specific prefixes and tags
-router.include_router(course_router, prefix="/courses", tags=["Courses"])
-router.include_router(instructor_router, prefix="/instructors", tags=["Instructors"])
-router.include_router(notification_router, prefix="/notifications", tags=["Notifications"])
-router.include_router(user_router, prefix="/users", tags=["Users"])
+# Include individual route modules
+router.include_router(course_router)
+router.include_router(instructor_router)
+router.include_router(notification_router)
+router.include_router(user_router)
