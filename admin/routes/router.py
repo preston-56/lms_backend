@@ -1,0 +1,32 @@
+"""
+This module contains the main router for the admin API. It organizes and includes
+individual route modules for managing courses, instructors, notifications, and users.
+
+Each route module (e.g., course, instructor, notification, user) is defined in a separate
+file and included here to form the complete set of admin routes for the LMS backend.
+
+The routes are grouped by their respective functionality, and the router is then added
+to the FastAPI app in the `main.py` file to handle all incoming requests related to
+admin operations in the LMS.
+
+Included Routers:
+- /courses: Routes for managing courses
+- /instructors: Routes for managing instructors
+- /notifications: Routes for managing notifications
+- /users: Routes for managing users
+"""
+
+from fastapi import APIRouter
+from .course import router as course_router
+from .instructor import router as instructor_router
+from .notification import router as notification_router
+from .user import router as user_router
+
+# Create the main router for admin routes
+router = APIRouter(prefix="/admin", tags=["Admin"])
+
+# Include individual route modules with specific prefixes and tags
+router.include_router(course_router, prefix="/courses", tags=["Courses"])
+router.include_router(instructor_router, prefix="/instructors", tags=["Instructors"])
+router.include_router(notification_router, prefix="/notifications", tags=["Notifications"])
+router.include_router(user_router, prefix="/users", tags=["Users"])
