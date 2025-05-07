@@ -1,0 +1,1 @@
+from .guard import require_admin
