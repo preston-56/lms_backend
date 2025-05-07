@@ -31,8 +31,7 @@ This approach ensures the system runs autonomously and is ready for production u
 
 ### Tech Stack
 
-- **Python 3.11+**
-
+* **Python 3.11+**
 * **FastAPI** – Lightweight, async-ready Web API framework
 * **SQLAlchemy** – ORM for database modeling
 * **Pydantic v2** – Robust data validation and serialization
@@ -46,27 +45,30 @@ This approach ensures the system runs autonomously and is ready for production u
 ### Setup & Installation
 
 1. **Clone the repository:**
-    ```bash
-       git@github.com:preston-56/lms_backend.git
 
-       cd lms-backend
-     ```
+   ```bash
+      git@github.com:preston-56/lms_backend.git
 
-
+      cd lms-backend
+   ```
 2. **Create a virtual environment:**
+
    ```bash
       python3 -m venv venv
       source venv/bin/activate # On Windows: venv\Scripts\activate
    ```
 3. **Install dependencies:**
+
    ```bash
      pip install -r requirements.txt
 
    ```
 4. **Run the app:**
+
    ```bash
       uvicorn fastapi_lms.main:app --reload
-    ```
+   ```
+
 - Visit `http://127.0.0.1:8000/docs` for Swagger UI.
 
 ---
