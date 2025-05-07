@@ -1,0 +1,1 @@
+from .faculty import router as instructor_router
