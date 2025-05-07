@@ -1,1 +1,2 @@
-LMS: Backend
+# LMS Daemon Backend
+This is a modular backend system for a Learning Management System (LMS) built with FastAPI. It handles user management, authentication, course delivery, notifications, and admin operations.
