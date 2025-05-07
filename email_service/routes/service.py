@@ -13,15 +13,12 @@ Dependencies:
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from datetime import datetime, timedelta
 
 from database.database import get_db
 from email_service import schemas, models, utils
-from user.models import User
+from email_service.notify import notify_inactive_users
 
 router = APIRouter(prefix="/email", tags=["Email"])
-
-INACTIVITY_DAYS = 7
 
 
 @router.post("/", response_model=schemas.EmailLogResponse)
@@ -52,35 +49,8 @@ async def notify_inactive_students(db: Session = Depends(get_db)):
     Find inactive students and send them a reminder email.
     """
     try:
-        threshold_date = datetime.utcnow() - timedelta(days=INACTIVITY_DAYS)
-
-        inactive_users = db.query(User).filter(
-            User.role == "student",
-            User.last_active < threshold_date,
-            User.is_active == True
-        ).all()
-
-        if not inactive_users:
-            return {"message": "No inactive students found."}
-
-        for user in inactive_users:
-            user.is_active = False
-            db.add(user)
-
-            # Send inactivity email and get the actual body used
-            email_body = await utils.send_inactivity_email(email=user.email, name=user.name)
-
-            # Log the sent email
-            email_log = models.EmailLog(
-                recipient=user.email,
-                subject="We've missed you!",
-                body=email_body
-            )
-            db.add(email_log)
-
-        db.commit()
-        return {"message": f"Notified {len(inactive_users)} inactive students."}
-
+        count = notify_inactive_users(db)
+        return {"message": f"Notified {count} inactive students."}
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=500, detail=str(e))
