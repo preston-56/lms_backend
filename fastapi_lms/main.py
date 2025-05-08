@@ -25,9 +25,10 @@ from email_service.routes import email_router
 from faculty.routes import instructor_router
 from notification.routes import notification_router
 from user.routes import user_router
+from schedule import lifespan
 
-# Initialize FastAPI app
-app = FastAPI()
+# Initialize FastAPI app with lifespan manager for handling scheduler
+app = FastAPI(lifespan=lifespan)
 
 # Automatically create database tables on app startup
 Base.metadata.create_all(bind=engine)
