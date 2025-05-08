@@ -45,7 +45,7 @@ This approach ensures the system runs autonomously and is ready for production u
 ### Folder Structure
 
 ```bash
-    lms_backend/
+lms_backend/
 ├── admin/                                  # Admin module for system administration
 │   ├── __init__.py
 │   ├── guard.py                            # Security guard for admin operations
