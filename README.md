@@ -60,7 +60,7 @@ lms_backend/
 │   ├── __init__.py
 │   ├── admin/                              # Admin-specific authentication
 │   │   ├── __init__.py
-│   │   └── guard.py                         # Admin access control dependency (require_admin)
+│   │   └── guard.py                        # Admin access control dependency (require_admin)
 │   ├── routes/                             # Auth API endpoints
 │   │   ├── __init__.py
 │   │   └── routes.py                       # Authentication routes with OAuth2 password flow
