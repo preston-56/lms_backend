@@ -26,3 +26,7 @@ htmlcov/
 # OS-generated files
 .DS_Store
 Thumbs.db
+
+# Ignore logs and reports in diagnostics
+diagnostics/lms_logs/
+diagnostics/lms_reports/
