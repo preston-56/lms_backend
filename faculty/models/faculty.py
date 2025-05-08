@@ -35,4 +35,4 @@ class Instructor(Base):
     is_active = Column(Boolean, default=True)
 
     courses = relationship("Course", back_populates="instructor")
-    notifications = relationship("Notification", back_populates="user")
+    notifications = relationship("Notification", back_populates="instructor", foreign_keys="Notification.instructor_id")
