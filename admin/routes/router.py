@@ -14,6 +14,7 @@ Included Routers:
 - /instructors: Routes for managing instructors
 - /notifications: Routes for managing notifications
 - /users: Routes for managing users
+- /scheduler: Routes for managing scheduler tasks
 """
 
 from fastapi import APIRouter
@@ -21,6 +22,7 @@ from .course import router as course_router
 from .instructor import router as instructor_router
 from .notification import router as notification_router
 from .user import router as user_router
+from .scheduler import router as scheduler_router
 
 # Create the main router for admin routes
 router = APIRouter(prefix="/admin", tags=["Admin"])
@@ -29,4 +31,5 @@ router = APIRouter(prefix="/admin", tags=["Admin"])
 router.include_router(course_router)
 router.include_router(instructor_router)
 router.include_router(notification_router)
+router.include_router(scheduler_router)
 router.include_router(user_router)
