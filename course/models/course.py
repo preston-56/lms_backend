@@ -16,6 +16,6 @@ class Course(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, nullable=False)
     description = Column(String, nullable=True)
-    instructor_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    instructor_id = Column(Integer, ForeignKey("instructors.id"), nullable=False)
 
-    instructor = relationship("User", back_populates="courses")
+    instructor = relationship("Instructor", back_populates="courses")
