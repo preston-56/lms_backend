@@ -167,7 +167,7 @@ This approach ensures the system runs autonomously and is ready for production u
 ├── .gitignore                              # Git ignore configuration (ignores logs and reports)
 ├── README.md                               # Project documentation
 ├── manage.py                               # Django management script
-└── requirements.txt                        # Python dependencies
+├── requirements.txt                        # Python dependencies
 │
 └── /etc/systemd/system/                    # System service files (external to project)
     ├── lms-notify.service                  # Systemd service for daemon
