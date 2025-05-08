@@ -48,7 +48,6 @@ This approach ensures the system runs autonomously and is ready for production u
 lms_backend/
 ├── admin/                                  # Admin module for system administration
 │   ├── __init__.py
-│   ├── guard.py                            # Security guard for admin operations
 │   └── routes/                             # Admin API endpoints
 │       ├── __init__.py
 │       ├── course.py                       # Course administration routes
@@ -61,7 +60,7 @@ lms_backend/
 │   ├── __init__.py
 │   ├── admin/                              # Admin-specific authentication
 │   │   ├── __init__.py
-│   │   └── guard.py                        # Admin authentication guard
+│   │   └── guard.py                         # Admin access control dependency (require_admin)
 │   ├── routes/                             # Auth API endpoints
 │   │   ├── __init__.py
 │   │   └── routes.py                       # Authentication routes with OAuth2 password flow
