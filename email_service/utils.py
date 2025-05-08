@@ -6,6 +6,7 @@ Email service for sending notifications using FastMail.
 - Provides two functions for sending emails:
   - `send_email`: General-purpose email sender.
   - `send_inactivity_email`: Specific email sender for inactivity reminders.
+  - `send_inactivity_email_sync`: Sync wrapper for daemon scripts.
 
 Environment Variables:
 - MAIL_USERNAME: Email username for authentication.
@@ -14,10 +15,11 @@ Environment Variables:
 - MAIL_FROM_NAME: Display name for the sender in email.
 """
 
-from fastapi_mail import FastMail, MessageSchema, ConnectionConfig, MessageType
-from pydantic import EmailStr
 import os
+import asyncio
 from dotenv import load_dotenv
+from pydantic import EmailStr
+from fastapi_mail import FastMail, MessageSchema, ConnectionConfig, MessageType
 
 load_dotenv()
 
@@ -64,15 +66,6 @@ async def send_email(recipient: EmailStr, subject: str, body: str):
 async def send_inactivity_email(email: EmailStr, name: str) -> str:
     """
     Send an inactivity reminder email to a student.
-
-    Args:
-    - email: The email address of the student.
-    - name: The name of the student to personalize the email.
-
-    Returns:
-    - body: The body content of the inactivity email.
-
-    Sends a plain text reminder about inactivity and returns the body for logging purposes.
     """
     body = (
         f"Hi {name},\n\n"
@@ -87,4 +80,11 @@ async def send_inactivity_email(email: EmailStr, name: str) -> str:
         subtype=MessageType.plain
     )
     await fm.send_message(message)
-    return body  # Return body for logging
+    return body
+
+# Synchronous wrapper for daemon scripts
+def send_inactivity_email_sync(email: EmailStr, name: str) -> str:
+    """
+    Synchronous wrapper for send_inactivity_email for use in daemon scripts.
+    """
+    return asyncio.run(send_inactivity_email(email, name))
