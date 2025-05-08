@@ -31,8 +31,7 @@ from typing import Optional, List
 import logging
 
 from database.database import get_db
-from user.models.user import User
-from course.models.course import Course
+from models import Course, User
 from course.schemas import CourseCreate, CourseResponse, CourseUpdate
 from auth.utils import get_current_user
 
