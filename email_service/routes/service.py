@@ -49,7 +49,7 @@ async def notify_inactive_route(db: Session = Depends(get_db)):
     Find inactive students and send them a reminder email.
     """
     try:
-        count = notify_inactive_students(db)
+        count = await notify_inactive_students(db)
         return {"message": f"Notified {count} inactive students."}
     except Exception as e:
         db.rollback()
