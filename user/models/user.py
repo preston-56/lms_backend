@@ -1,8 +1,8 @@
 """
 This module defines the SQLAlchemy User model for the application.
 The model represents a user in the system and includes fields for the user's
-name, email, role, password, activity status, and relationships with courses
-and notifications.
+name, email, role, password, activity status, and relationships with
+notifications.
 
 Fields:
 - id: Unique identifier for the user.
@@ -14,7 +14,6 @@ Fields:
 - is_active: Whether the user is active or not (default is True).
 
 Relationships:
-- courses: Relationship with the Course model, representing courses taught by the user.
 - notifications: Relationship with the Notification model, representing notifications for the user.
 """
 
@@ -34,5 +33,4 @@ class User(Base):
     last_active = Column(DateTime, default=datetime.utcnow)
     is_active = Column(Boolean, default=True)
 
-    courses = relationship("Course", back_populates="instructor")
     notifications = relationship("Notification", back_populates="user")
