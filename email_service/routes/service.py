@@ -16,7 +16,7 @@ from sqlalchemy.orm import Session
 
 from database.database import get_db
 from email_service import schemas, models, utils
-from email_service.notify import notify_inactive_users
+from email_service.notify import notify_inactive_students
 
 router = APIRouter(prefix="/email", tags=["Email"])
 
@@ -44,12 +44,12 @@ async def send_email_route(email: schemas.EmailRequest, db: Session = Depends(ge
 
 
 @router.post("/inactive/")
-async def notify_inactive_students(db: Session = Depends(get_db)):
+async def notify_inactive_route(db: Session = Depends(get_db)):
     """
     Find inactive students and send them a reminder email.
     """
     try:
-        count = notify_inactive_users(db)
+        count = notify_inactive_students(db)
         return {"message": f"Notified {count} inactive students."}
     except Exception as e:
         db.rollback()
