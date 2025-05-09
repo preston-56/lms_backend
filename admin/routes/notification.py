@@ -21,7 +21,7 @@ from auth.utils import require_admin
 
 logger = logging.getLogger(__name__)
 
-router = APIRouter()
+router = APIRouter(tags=["Administrator Notification Management"])
 
 @router.get("/notifications", response_model=List[NotificationResponse])
 def list_notifications(
