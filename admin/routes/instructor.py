@@ -28,7 +28,7 @@ from auth.utils import require_admin, hash_password, validate_password_strength
 from course.models.course import Course
 from course.schemas.course import CourseResponse
 
-router = APIRouter()
+router = APIRouter(tags=["Administrator Instructor Management"])
 logger = logging.getLogger(__name__)
 
 @router.get("/instructors", response_model=List[UserSchema])
