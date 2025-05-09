@@ -17,11 +17,11 @@ from typing import List, Optional
 import logging
 
 from database.database import get_db
-from user.models.user import User
+from models import User
 from user.schemas.user import UserSchema, UserCreateSchema, UserUpdateSchema
 from auth.utils import require_admin, hash_password, validate_password_strength
 
-router = APIRouter()
+router = APIRouter(prefix="/users", tags=["Administrator User Management"])
 logger = logging.getLogger(__name__)
 
 @router.get("/users", response_model=List[UserSchema])

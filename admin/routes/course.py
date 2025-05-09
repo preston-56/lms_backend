@@ -15,8 +15,7 @@ from sqlalchemy.orm import Session
 import logging
 
 from database.database import get_db
-from course.models import Course
-from user.models import User
+from models import Course, User
 from course.schemas import CourseCreate, CourseResponse, CourseUpdate
 from auth.utils import require_admin
 

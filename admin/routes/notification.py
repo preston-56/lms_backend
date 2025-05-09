@@ -14,8 +14,7 @@ from sqlalchemy.orm import Session
 import logging
 
 from database.database import get_db
-from notification.models import Notification
-from user.models.user import User
+from models import User, Notification
 from notification.schemas import NotificationCreate, NotificationResponse
 from auth.utils import require_admin
 

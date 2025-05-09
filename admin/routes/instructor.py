@@ -22,10 +22,9 @@ from typing import List, Optional
 import logging
 
 from database.database import get_db
-from user.models.user import User
+from models import Course, User
 from user.schemas.user import UserSchema, UserCreateSchema, UserUpdateSchema
 from auth.utils import require_admin, hash_password, validate_password_strength
-from course.models.course import Course
 from course.schemas.course import CourseResponse
 
 router = APIRouter(tags=["Administrator Instructor Management"])

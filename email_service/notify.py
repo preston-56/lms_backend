@@ -12,7 +12,7 @@ from datetime import datetime, timedelta
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 
-from user.models.user import User
+from models import User
 from notification.models.notification import Notification
 from email_service.utils import send_email
 
