@@ -22,7 +22,8 @@ from auth.utils import require_admin
 
 logger = logging.getLogger(__name__)
 
-router = APIRouter()
+router = APIRouter(tags=["Administrator Course Management"])
+
 @router.get("/courses", response_model=List[CourseResponse])
 def list_courses(
     skip: int = Query(0, ge=0),
