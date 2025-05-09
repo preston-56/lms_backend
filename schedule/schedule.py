@@ -14,6 +14,7 @@ from apscheduler.triggers.cron import CronTrigger
 from contextlib import asynccontextmanager
 import logging
 import asyncio
+import os
 
 # Import existing daemon functions
 from database.database import SessionLocal
@@ -48,7 +49,8 @@ async def _notify_task_async():
         logger.info(f"Successfully notified {count} inactive user(s).")
 
         # Run diagnostics if needed
-        if count == 0:
+        enable_diagnostics = os.environ.get("LMS_ENABLE_DIAGNOSTICS", "false").lower() == "true"
+        if enable_diagnostics or count == 0:
             logger.info("Running activity diagnostics...")
             diagnose_activity(db)
 
@@ -66,22 +68,41 @@ async def lifespan(app):
     FastAPI lifespan event handler to start and stop the scheduler
     with the application lifecycle.
     """
-    # Start the scheduler
-    logger.info("Starting scheduler")
-    scheduler.start()
+    # Only start scheduler if not in testing mode
+    if os.environ.get("ENVIRONMENT") != "testing":
+        # Get the cron schedule from environment variable or use default
+        cron_schedule = os.environ.get("NOTIFICATION_SCHEDULE", "0 8 * * *")
 
-    # Add the job - run at 8:00 AM every day
-    scheduler.add_job(
-        notify_task_wrapper,  # Use the non-async wrapper
-        CronTrigger(hour=8, minute=0),
-        id="notify_inactive_students",
-        name="Notify inactive students daily",
-        replace_existing=True,
-    )
-    logger.info("Scheduled task: notify_inactive_students")
+        # Parse the cron expression into components
+        try:
+            minute, hour, day, month, day_of_week = cron_schedule.split()
+        except ValueError:
+            logger.warning(f"Invalid cron expression: {cron_schedule}. Using default (8 AM daily).")
+            minute, hour, day, month, day_of_week = "0", "8", "*", "*", "*"
+
+        # Start the scheduler
+        logger.info("Starting scheduler")
+        scheduler.start()
+
+        # Add the job - using the parsed cron components
+        scheduler.add_job(
+            notify_task_wrapper,  # Use the non-async wrapper
+            CronTrigger(
+                minute=minute,
+                hour=hour,
+                day=day,
+                month=month,
+                day_of_week=day_of_week
+            ),
+            id="notify_inactive_students",
+            name="Notify inactive students according to schedule",
+            replace_existing=True,
+        )
+        logger.info(f"Scheduled task: notify_inactive_students with schedule: {cron_schedule}")
 
     yield
 
     # Shutdown the scheduler when the app stops
-    logger.info("Shutting down scheduler")
-    scheduler.shutdown()
+    if os.environ.get("ENVIRONMENT") != "testing" and scheduler.running:
+        logger.info("Shutting down scheduler")
+        scheduler.shutdown()
