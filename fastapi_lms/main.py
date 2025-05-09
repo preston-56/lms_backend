@@ -77,9 +77,11 @@ def custom_openapi():
         }
     }
 
-    for path in openapi_schema["paths"].values():
-        for method in path.values():
-            method["security"] = [{"BearerAuth": []}]
+    # Add security requirement to all routes except auth routes
+    for path, path_item in openapi_schema["paths"].items():
+        if not path.startswith("/v1/auth/"):
+            for method in path_item.values():
+                method["security"] = [{"BearerAuth": []}]
     app.openapi_schema = openapi_schema
     return app.openapi_schema
 
