@@ -19,11 +19,11 @@ Each endpoint ensures proper permission checks and validation for user data.
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from user.schemas.user import UserSchema, UserCreateSchema, UserUpdateSchema
-from user.models.user import User
+from models import User
 from database.database import get_db
 from user.utils import hash_password
 
-router = APIRouter(prefix="/users", tags=["Users"])
+router = APIRouter(prefix="/users", tags=["LMS System Users"])
 
 # List all users
 @router.get("/", response_model=list[UserSchema])
