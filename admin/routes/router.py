@@ -25,7 +25,7 @@ from .user import router as user_router
 from .scheduler import router as scheduler_router
 
 # Create the main router for admin routes
-router = APIRouter(prefix="/admin", tags=["Admin"])
+router = APIRouter(prefix="/admin")
 
 # Include individual route modules
 router.include_router(course_router)
