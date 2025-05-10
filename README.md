@@ -180,7 +180,7 @@ lms_backend/
    ```bash
       git@github.com:preston-56/lms_backend.git
 
-      cd lms-backend
+      cd lms_backend
    ```
 2. **Create a virtual environment:**
 
