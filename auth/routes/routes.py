@@ -28,7 +28,7 @@ import os
 from typing import Optional
 
 from database.database import get_db
-from user.models.user import User
+from models import User
 from auth.utils import (
     hash_password,
     verify_password,
@@ -42,7 +42,7 @@ from user.schemas.user import UserCreateSchema, UserSchema
 # Set up logging
 logger = logging.getLogger(__name__)
 
-router = APIRouter(prefix="/auth", tags=["Authentication"])
+router = APIRouter(prefix="/auth", tags=["User Authentication"])
 
 # Admin registration secret key
 ADMIN_REGISTRATION_KEY = os.environ.get("ADMIN_REGISTRATION_KEY", "admin_setup_key")
