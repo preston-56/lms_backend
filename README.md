@@ -54,6 +54,7 @@ lms_backend/
 │       ├── instructor.py                   # Instructor management routes
 │       ├── notification.py                 # Notification management routes
 │       ├── router.py                       # Main admin router configuration
+│       ├── scheduler.py                    # Schedule administration routes
 │       └── user.py                         # User administration routes
 │
 ├── auth/                                   # Authentication and authorization module
@@ -150,6 +151,10 @@ lms_backend/
 │   └── schemas/                            # Notification data validation schemas
 │       ├── __init__.py
 │       └── notification.py                 # Notification request/response schemas
+|
+├── schedule/                               # Schedule management module
+│   ├── __init__.py
+│   └── schedule.py                         # Schedule utility functions
 │
 ├── user/                                   # User management module
 │   ├── utils.py                            # User-specific utility functions
