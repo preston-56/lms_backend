@@ -180,6 +180,36 @@ lms_backend/
 
 ### Setup & Installation
 
+### Install Dependencies
+
+- Make sure Python 3.10+ and PostgreSQL are installed on your machine.
+
+   ```bash
+      sudo apt update
+      sudo apt install python3 python3-venv python3-pip postgresql postgresql-contrib
+   ```
+
+### Create PostgreSQL Database and User
+
+- Log in to the PostgreSQL CLI:
+  ```bash
+     sudo -u postgres psql
+  ```
+- Run the following commands, replacing placeholder values with your own:
+  ```bash
+     -- Create user
+     CREATE USER <db_user> WITH PASSWORD '<db_password>';
+
+     -- Create database
+     CREATE DATABASE <db_name> OWNER <db_user>;
+
+      -- Grant privileges
+      GRANT ALL PRIVILEGES ON DATABASE <db_name> TO <db_user>;
+
+      -- Exit
+      \q
+  ```
+
 1. **Clone the repository:**
 
    ```bash
