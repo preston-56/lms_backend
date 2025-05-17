@@ -13,16 +13,16 @@ from fastapi import APIRouter, Depends, Query, status
 from sqlalchemy.orm import Session
 import logging
 
-from database.database import get_db
+from database import get_db
 from models import User, Notification
-from notification.schemas import NotificationCreate, NotificationResponse
+from notification.schemas import notification as schemas
 from auth.utils import require_admin
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter(tags=["Administrator Notification Management"])
 
-@router.get("/notifications", response_model=List[NotificationResponse])
+@router.get("/notifications", response_model=List[schemas.NotificationResponse])
 def list_notifications(
     skip: int = Query(0, ge=0),
     limit: int = Query(100, ge=1, le=100),
@@ -36,9 +36,9 @@ def list_notifications(
     return notifications
 
 
-@router.post("/notifications", response_model=NotificationResponse, status_code=status.HTTP_201_CREATED)
+@router.post("/notifications", response_model=schemas.NotificationResponse, status_code=status.HTTP_201_CREATED)
 def send_notification(
-    notification: NotificationCreate,
+    notification: schemas.NotificationCreate,
     db: Session = Depends(get_db),
     admin: User = Depends(require_admin),
 ):
