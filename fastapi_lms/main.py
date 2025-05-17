@@ -15,7 +15,9 @@ from fastapi import FastAPI, APIRouter
 from fastapi.openapi.utils import get_openapi
 from fastapi.security import OAuth2PasswordBearer
 
-from database.database import Base, engine
+from database import Base, engine
+
+import models
 
 # Routers for different application modules
 from admin.routes.router import router as admin_router
