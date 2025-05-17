@@ -151,7 +151,7 @@ lms_backend/
 │   └── schemas/                            # Notification data validation schemas
 │       ├── __init__.py
 │       └── notification.py                 # Notification request/response schemas
-|
+│
 ├── schedule/                               # Schedule management module
 │   ├── __init__.py
 │   └── schedule.py                         # Schedule utility functions
