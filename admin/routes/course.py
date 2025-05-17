@@ -16,14 +16,14 @@ import logging
 
 from database.database import get_db
 from models import Course, User
-from course.schemas import CourseCreate, CourseResponse, CourseUpdate
+from course.schemas import course as schemas
 from auth.utils import require_admin
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter(tags=["Administrator Course Management"])
 
-@router.get("/courses", response_model=List[CourseResponse])
+@router.get("/courses", response_model=List[schemas.CourseResponse])
 def list_courses(
     skip: int = Query(0, ge=0),
     limit: int = Query(100, ge=1, le=100),
@@ -44,9 +44,9 @@ def list_courses(
     return courses
 
 
-@router.post("/courses", response_model=CourseResponse, status_code=status.HTTP_201_CREATED)
+@router.post("/courses", response_model=schemas.CourseResponse, status_code=status.HTTP_201_CREATED)
 def create_course(
-    course: CourseCreate,
+    course: schemas.CourseCreate,
     db: Session = Depends(get_db),
     admin: User = Depends(require_admin),
 ):
@@ -74,10 +74,10 @@ def create_course(
     return db_course
 
 
-@router.put("/courses/{course_id}", response_model=CourseResponse)
+@router.put("/courses/{course_id}", response_model=schemas.CourseResponse)
 def update_course(
     course_id: int,
-    course_update: CourseUpdate,
+    course_update: schemas.CourseUpdate,
     db: Session = Depends(get_db),
     admin: User = Depends(require_admin),
 ):
