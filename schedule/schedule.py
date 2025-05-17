@@ -17,7 +17,7 @@ import asyncio
 import os
 
 # Import existing daemon functions
-from database.database import SessionLocal
+from database import SessionLocal
 from email_service.notify import notify_inactive_students
 from diagnostics.activity import diagnose_activity
 

@@ -20,7 +20,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from user.schemas.user import UserSchema, UserCreateSchema, UserUpdateSchema
 from models import User
-from database.database import get_db
+from database import get_db
 from user.utils import hash_password
 
 router = APIRouter(prefix="/users", tags=["LMS System Users"])

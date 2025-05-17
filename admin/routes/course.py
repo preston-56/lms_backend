@@ -14,7 +14,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 import logging
 
-from database.database import get_db
+from database import get_db
 from models import Course, User
 from course.schemas import course as schemas
 from auth.utils import require_admin

@@ -24,7 +24,7 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 
-from database.database import get_db
+from database import get_db
 from user.models.user import User
 
 # Enhanced security configuration

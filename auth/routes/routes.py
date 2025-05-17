@@ -27,7 +27,7 @@ import logging
 import os
 from typing import Optional
 
-from database.database import get_db
+from database import get_db
 from models import User
 from auth.utils import (
     hash_password,

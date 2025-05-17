@@ -23,7 +23,7 @@ Each notification includes:
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from database.database import get_db
+from database import get_db
 from notification import models, schemas
 from models import User
 

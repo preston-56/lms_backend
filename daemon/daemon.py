@@ -9,7 +9,7 @@ Daemon script to notify inactive students in the LMS.
 
 import sys
 import os
-from database.database import SessionLocal
+from database import SessionLocal
 from email_service.notify import notify_inactive_students
 from diagnostics.activity import diagnose_activity
 

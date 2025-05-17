@@ -10,7 +10,7 @@ Table: email_logs
 
 from sqlalchemy import Column, Integer, String, DateTime
 from datetime import datetime
-from database.database import Base
+from database import Base
 
 class EmailLog(Base):
     __tablename__ = "email_logs"

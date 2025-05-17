@@ -16,7 +16,7 @@ from sqlalchemy.orm import Session
 from typing import List, Optional
 import logging
 
-from database.database import get_db
+from database import get_db
 from models import User
 from user.schemas.user import UserSchema, UserCreateSchema, UserUpdateSchema
 from auth.utils import require_admin, hash_password, validate_password_strength

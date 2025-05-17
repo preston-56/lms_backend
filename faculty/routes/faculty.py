@@ -30,7 +30,7 @@ from sqlalchemy.orm import Session
 from typing import Optional, List
 import logging
 
-from database.database import get_db
+from database import get_db
 from models import Course, User
 from course.schemas import CourseCreate, CourseResponse, CourseUpdate
 from auth.utils import get_current_user

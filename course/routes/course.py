@@ -11,7 +11,7 @@ These endpoints do not require admin permissions and are read-only.
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from database.database import get_db
+from database import get_db
 from course import schemas, models
 
 router = APIRouter(prefix="/courses", tags=["LMS Student Courses"])
