@@ -90,7 +90,7 @@ lms_backend/
 ├── database/                               # Database connection management
 │   ├── __init__.py                         # Exports get_db, engine, base & SessionLocal
 │   ├── base.py                             # Declarative Base class
-│   └── database.py                         # ORM setup with SQLAlchemy engine, SessionLocal)
+│   └── database.py                         # ORM setup with SQLAlchemy engine, SessionLocal
 │
 ├── diagnostics/                            # System diagnostics and monitoring
 │   ├── __init__.py
