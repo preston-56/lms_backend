@@ -9,7 +9,7 @@ user and checks their role, raising an HTTP 403 error if the user lacks admin pr
 
 from fastapi import Depends, HTTPException, status
 from auth.utils import get_current_user
-from user.models.user import User
+from models import User
 
 def require_admin(current_user: User = Depends(get_current_user)):
     if current_user.role != "admin":
