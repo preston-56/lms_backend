@@ -32,7 +32,7 @@ import logging
 
 from database import get_db
 from models import Course, User
-from course.schemas import CourseCreate, CourseResponse, CourseUpdate
+from course.schemas import course as schemas
 from auth.utils import get_current_user
 
 logger = logging.getLogger(__name__)
@@ -52,7 +52,7 @@ def require_instructor(current_user: User = Depends(get_current_user)):
         )
     return current_user
 
-@router.get("/", response_model=List[CourseResponse])
+@router.get("/", response_model=List[schemas.CourseResponse])
 def list_instructor_courses(
     skip: int = Query(0, ge=0),
     limit: int = Query(20, ge=1, le=50),
@@ -76,7 +76,7 @@ def list_instructor_courses(
     courses = query.offset(skip).limit(limit).all()
     return courses
 
-@router.get("/{course_id}", response_model=CourseResponse)
+@router.get("/{course_id}", response_model=schemas.CourseResponse)
 def get_instructor_course(
     course_id: int,
     db: Session = Depends(get_db),
@@ -99,9 +99,9 @@ def get_instructor_course(
 
     return course
 
-@router.post("/", response_model=CourseResponse, status_code=status.HTTP_201_CREATED)
+@router.post("/", response_model=schemas.CourseResponse, status_code=status.HTTP_201_CREATED)
 def create_instructor_course(
-    course: CourseCreate,
+    course: schemas.CourseCreate,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_instructor)
 ):
@@ -122,10 +122,10 @@ def create_instructor_course(
     logger.info(f"Instructor {current_user.email} created new course: {course.title}")
     return db_course
 
-@router.put("/{course_id}", response_model=CourseResponse)
+@router.put("/{course_id}", response_model=schemas.CourseResponse)
 def update_instructor_course(
     course_id: int,
-    course_update: CourseUpdate,
+    course_update: schemas.CourseUpdate,
     db: Session = Depends(get_db),
     current_user: User = Depends(require_instructor)
 ):
