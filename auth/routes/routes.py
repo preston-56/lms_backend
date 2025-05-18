@@ -36,8 +36,8 @@ from auth.utils import (
     get_current_user,
     validate_password_strength
 )
-from auth.schemas import LoginRequest, Token
-from user.schemas.user import UserCreateSchema, UserSchema
+from auth.schemas import auth as auth_schemas
+from user.schemas import user as schemas
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -52,9 +52,9 @@ FIRST_ADMIN_EMAIL = os.environ.get("FIRST_ADMIN_EMAIL")
 # Registration Endpoint
 # ============================================================================
 
-@router.post("/register", response_model=UserSchema, status_code=status.HTTP_201_CREATED)
+@router.post("/register", response_model=schemas.UserSchema, status_code=status.HTTP_201_CREATED)
 def register(
-    user: UserCreateSchema,
+    user: schemas.UserCreateSchema,
     admin_key: Optional[str] = None,
     db: Session = Depends(get_db)
 ):
@@ -116,8 +116,8 @@ def register(
 # Login Endpoint
 # ============================================================================
 
-@router.post("/login", response_model=Token)
-def login(response: Response, login: LoginRequest, db: Session = Depends(get_db)):
+@router.post("/login", response_model=auth_schemas.Token)
+def login(response: Response, login: auth_schemas.LoginRequest, db: Session = Depends(get_db)):
     """
     Authenticate user and return JWT token.
     """
@@ -156,7 +156,7 @@ def login(response: Response, login: LoginRequest, db: Session = Depends(get_db)
 # Get Current User
 # ============================================================================
 
-@router.get("/me", response_model=UserSchema)
+@router.get("/me", response_model=schemas.UserSchema)
 def read_current_user(current_user: User = Depends(get_current_user)):
     """
     Get the current authenticated user's information.
