@@ -18,13 +18,13 @@ import logging
 
 from database import get_db
 from models import User
-from user.schemas.user import UserSchema, UserCreateSchema, UserUpdateSchema
+from user.schemas import user as schemas
 from auth.utils import require_admin, hash_password, validate_password_strength
 
 router = APIRouter(prefix="/users", tags=["Administrator User Management"])
 logger = logging.getLogger(__name__)
 
-@router.get("/users", response_model=List[UserSchema])
+@router.get("/users", response_model=List[schemas.UserSchema])
 def list_users(
     skip: int = Query(0, ge=0),
     limit: int = Query(100, ge=1, le=100),
@@ -53,7 +53,7 @@ def list_users(
     return users
 
 
-@router.get("/users/{user_id}", response_model=UserSchema)
+@router.get("/users/{user_id}", response_model=schemas.UserSchema)
 def get_user(
     user_id: int,
     db: Session = Depends(get_db),
@@ -69,9 +69,9 @@ def get_user(
     return user
 
 
-@router.post("/users", response_model=UserSchema, status_code=status.HTTP_201_CREATED)
+@router.post("/users", response_model=schemas.UserSchema, status_code=status.HTTP_201_CREATED)
 def create_user(
-    user: UserCreateSchema,
+    user: schemas.UserCreateSchema,
     db: Session = Depends(get_db),
     admin: User = Depends(require_admin),
 ):
@@ -105,10 +105,10 @@ def create_user(
     return db_user
 
 
-@router.put("/users/{user_id}", response_model=UserSchema)
+@router.put("/users/{user_id}", response_model=schemas.UserSchema)
 def update_user(
     user_id: int,
-    user_update: UserUpdateSchema,
+    user_update: schemas.UserUpdateSchema,
     db: Session = Depends(get_db),
     admin: User = Depends(require_admin),
 ):
