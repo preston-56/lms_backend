@@ -12,8 +12,7 @@ from datetime import datetime, timedelta
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 
-from models import User
-from notification.models.notification import Notification
+from models import User, Notification
 from email_service.utils import send_email
 
 # Set up logging
