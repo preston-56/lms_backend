@@ -25,7 +25,7 @@ from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 
 from database import get_db
-from user.models.user import User
+from models import User
 
 # Enhanced security configuration
 # Load secret key from environment variable with a fallback for development
