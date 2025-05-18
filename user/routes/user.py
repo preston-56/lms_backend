@@ -18,7 +18,7 @@ Each endpoint ensures proper permission checks and validation for user data.
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from user.schemas.user import UserSchema, UserCreateSchema, UserUpdateSchema
+from user import schemas
 from models import User
 from database import get_db
 from user.utils import hash_password
@@ -26,7 +26,7 @@ from user.utils import hash_password
 router = APIRouter(prefix="/users", tags=["LMS System Users"])
 
 # List all users
-@router.get("/", response_model=list[UserSchema])
+@router.get("/", response_model=list[schemas.UserSchema])
 def list_users(db: Session = Depends(get_db)):
     """
     List all users in the system.
@@ -37,8 +37,8 @@ def list_users(db: Session = Depends(get_db)):
     return db.query(User).all()
 
 # Create a new user
-@router.post("/", response_model=UserSchema)
-def create_user(user: UserCreateSchema, db: Session = Depends(get_db)):
+@router.post("/", response_model=schemas.UserSchema)
+def create_user(user: schemas.UserCreateSchema, db: Session = Depends(get_db)):
     """
     Create a new user in the system.
 
@@ -65,7 +65,7 @@ def create_user(user: UserCreateSchema, db: Session = Depends(get_db)):
     return new_user
 
 # Get a user by ID
-@router.get("/{user_id}", response_model=UserSchema)
+@router.get("/{user_id}", response_model=schemas.UserSchema)
 def get_user(user_id: int, db: Session = Depends(get_db)):
     """
     Retrieve a user by their ID.
@@ -79,8 +79,8 @@ def get_user(user_id: int, db: Session = Depends(get_db)):
     return user
 
 # Update a user
-@router.put("/{user_id}", response_model=UserSchema)
-def update_user(user_id: int, updated_data: UserUpdateSchema, db: Session = Depends(get_db)):
+@router.put("/{user_id}", response_model=schemas.UserSchema)
+def update_user(user_id: int, updated_data: schemas.UserUpdateSchema, db: Session = Depends(get_db)):
     """
     Update an existing user.
 
