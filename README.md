@@ -88,8 +88,9 @@ lms_backend/
 │                                           # Runs as systemd service (lms-notify.service)
 │
 ├── database/                               # Database connection management
-│   ├── __init__.py                         # Exports get_db from database module
-│   └── database.py                         # ORM setup with SQLAlchemy (Base, engine, SessionLocal)
+│   ├── __init__.py                         # Exports get_db, engine, base & SessionLocal
+│   ├── database.py                         # ORM setup with SQLAlchemy engine, SessionLocal)
+│   └── base.py                             # Declarative Base class
 │
 ├── diagnostics/                            # System diagnostics and monitoring
 │   ├── __init__.py
