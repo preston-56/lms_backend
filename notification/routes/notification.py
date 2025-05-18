@@ -24,8 +24,8 @@ Each notification includes:
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from database import get_db
-from notification import models, schemas
-from models import User
+from notification import schemas
+from models import User, Notification
 
 router = APIRouter(prefix="/notifications", tags=["Notifications"])
 
@@ -37,7 +37,7 @@ def send_notification(notification: schemas.NotificationCreate, db: Session = De
         raise HTTPException(status_code=404, detail="User not found")
 
     # Create and save the notification
-    db_notification = models.Notification(**notification.dict())
+    db_notification = Notification(**notification.model_dump())
     db.add(db_notification)
     db.commit()
     db.refresh(db_notification)
@@ -46,4 +46,4 @@ def send_notification(notification: schemas.NotificationCreate, db: Session = De
 @router.get("/", response_model=list[schemas.NotificationResponse])
 def get_all_notifications(db: Session = Depends(get_db)):
     # Return all notifications
-    return db.query(models.Notification).all()
+    return db.query(Notification).all()
