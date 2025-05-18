@@ -12,7 +12,8 @@ These endpoints do not require admin permissions and are read-only.
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database import get_db
-from course import schemas, models
+from course import schemas
+from models import Course
 
 router = APIRouter(prefix="/courses", tags=["LMS Student Courses"])
 
@@ -21,14 +22,14 @@ def list_courses(db: Session = Depends(get_db)):
     """
     List all courses available in the system.
     """
-    return db.query(models.Course).all()
+    return db.query(Course).all()
 
 @router.get("/{course_id}", response_model=schemas.CourseResponse)
 def get_course(course_id: int, db: Session = Depends(get_db)):
     """
     Retrieve detailed information about a specific course.
     """
-    course = db.query(models.Course).filter(models.Course.id == course_id).first()
+    course = db.query(Course).filter(Course.id == course_id).first()
     if not course:
         raise HTTPException(status_code=404, detail="Course not found")
     return course
