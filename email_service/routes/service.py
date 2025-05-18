@@ -15,7 +15,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from database import get_db
-from email_service import schemas, models, utils
+from email_service import schemas, utils
+from models import EmailLog
 from email_service.notify import notify_inactive_students
 
 router = APIRouter(prefix="/email", tags=["Email"])
@@ -29,7 +30,7 @@ async def send_email_route(email: schemas.EmailRequest, db: Session = Depends(ge
     try:
         await utils.send_email(email.recipient, email.subject, email.body)
 
-        email_log = models.EmailLog(
+        email_log = EmailLog(
             recipient=email.recipient,
             subject=email.subject,
             body=email.body
