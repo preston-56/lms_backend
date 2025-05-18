@@ -23,14 +23,14 @@ import logging
 
 from database import get_db
 from models import Course, User
-from user.schemas.user import UserSchema, UserCreateSchema, UserUpdateSchema
+from user.schemas import user as user_schemas
 from auth.utils import require_admin, hash_password, validate_password_strength
-from course.schemas.course import CourseResponse
+from course.schemas import course as course_schemas
 
 router = APIRouter(tags=["Administrator Instructor Management"])
 logger = logging.getLogger(__name__)
 
-@router.get("/instructors", response_model=List[UserSchema])
+@router.get("/instructors", response_model=List[user_schemas.UserSchema])
 def list_instructors(
     skip: int = Query(0, ge=0),
     limit: int = Query(100, ge=1, le=100),
@@ -51,7 +51,7 @@ def list_instructors(
     return instructors
 
 
-@router.get("/instructors/{instructor_id}", response_model=UserSchema)
+@router.get("/instructors/{instructor_id}", response_model=user_schemas.UserSchema)
 def get_instructor(
     instructor_id: int,
     db: Session = Depends(get_db),
@@ -72,9 +72,9 @@ def get_instructor(
     return instructor
 
 
-@router.post("/instructors", response_model=UserSchema, status_code=status.HTTP_201_CREATED)
+@router.post("/instructors", response_model=user_schemas.UserSchema, status_code=status.HTTP_201_CREATED)
 def create_instructor(
-    instructor: UserCreateSchema,
+    instructor: user_schemas.UserCreateSchema,
     db: Session = Depends(get_db),
     admin: User = Depends(require_admin),
 ):
@@ -104,10 +104,10 @@ def create_instructor(
     return db_instructor
 
 
-@router.put("/instructors/{instructor_id}", response_model=UserSchema)
+@router.put("/instructors/{instructor_id}", response_model=user_schemas.UserSchema)
 def update_instructor(
     instructor_id: int,
-    instructor_update: UserUpdateSchema,
+    instructor_update: user_schemas.UserUpdateSchema,
     db: Session = Depends(get_db),
     admin: User = Depends(require_admin),
 ):
@@ -187,7 +187,7 @@ def delete_instructor(
     return {"detail": "Instructor deleted successfully"}
 
 
-@router.get("/instructors/{instructor_id}/courses", response_model=List[CourseResponse])
+@router.get("/instructors/{instructor_id}/courses", response_model=List[course_schemas.CourseResponse])
 def get_instructor_courses(
     instructor_id: int,
     db: Session = Depends(get_db),
@@ -208,7 +208,7 @@ def get_instructor_courses(
     return courses
 
 
-@router.put("/courses/{course_id}/instructor/{instructor_id}", response_model=CourseResponse)
+@router.put("/courses/{course_id}/instructor/{instructor_id}", response_model=course_schemas.CourseResponse)
 def assign_instructor_to_course(
     course_id: int,
     instructor_id: int,
