@@ -11,11 +11,15 @@ Features:
 - OAuth2 password flow for Swagger UI login (Authorize button)
 """
 
+import os
 from fastapi import FastAPI, APIRouter
 from fastapi.openapi.utils import get_openapi
 from fastapi.security import OAuth2PasswordBearer
-
+import uvicorn
+from dotenv import load_dotenv
 from database import Base, engine
+
+load_dotenv()
 
 import models
 
@@ -88,3 +92,10 @@ def custom_openapi():
     return app.openapi_schema
 
 app.openapi = custom_openapi
+
+# Run the FastAPI app using Uvicorn when the script is executed directly
+if __name__ == "__main__":
+    port = os.environ.get("PORT")
+    if not port:
+        raise EnvironmentError("PORT environment variable is not set")
+    uvicorn.run("fastapi_lms.main:app", host="0.0.0.0", port=int(port), reload=False)
