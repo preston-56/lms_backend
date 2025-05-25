@@ -6,7 +6,7 @@
 
 ### Features
 
-**User Management:*
+**User Management:**
 
 - Create, update, list, and delete users with role-based distinctions: `admin`, `instructor`, and `student`.
 
