@@ -6,14 +6,21 @@
 
 ### Features
 
-- **User Management**
-  Create, update, list, and delete users with role-based distinctions: `admin`, `instructor`, and `student`.
-- **Course & Notification Modules**
-  Manage courses and send notifications to specific users. Each notification includes a message and timestamp.
-- **Email Service**
-  Send custom emails and auto-notify inactive students based on their `last_active` timestamp.
-- **Background Daemon Support**
-  Continuously monitor student activity and automatically send email reminders to inactive students, reducing manual oversight and ensuring timely engagement interventions.
+**User Management:*
+
+- Create, update, list, and delete users with role-based distinctions: `admin`, `instructor`, and `student`.
+
+**Course & Notification Modules:**
+
+- Manage courses and send notifications to specific users. Each notification includes a message and timestamp.
+
+**Email Service:**
+
+- Send custom emails and auto-notify inactive students based on their `last_active` timestamp.
+
+**Background Daemon Support:**
+
+- Continuously monitor student activity and automatically send email reminders to inactive students, reducing manual oversight and ensuring timely engagement interventions.
 
 ---
 
